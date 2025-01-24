@@ -99,7 +99,19 @@ internal class DolbyController private constructor(
 
         // Restore our main settings
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        dsOn = prefs.getBoolean(DolbyConstants.PREF_ENABLE, true)
+
+        // Get the default value from the config resource
+        val defaultConfig = context.resources.getBoolean(R.bool.config_dolby_enable_default)
+
+        // Check if the preference exists in SharedPreferences.
+        // If not, write the default value to SharedPreferences.
+        if(!prefs.contains(DolbyConstants.PREF_ENABLE)){
+            val editor = prefs.edit()
+            editor.putBoolean(DolbyConstants.PREF_ENABLE,defaultConfig).apply()
+        }
+        
+        // Retrieve the actual value from SharedPreferences, using the config value as the fallback
+        dsOn = prefs.getBoolean(DolbyConstants.PREF_ENABLE, defaultConfig)
 
         context.resources.getStringArray(R.array.dolby_profile_values)
                 .map { it.toInt() }
