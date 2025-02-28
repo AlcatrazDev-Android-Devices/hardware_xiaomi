@@ -172,8 +172,8 @@ class IfaaService : Service() {
         private const val SUPPORTED_BIO_MASK_PROP = "persist.vendor.sys.pay.ifaa"
         private const val FP_VENDOR_PROP = "persist.vendor.sys.fp.vendor"
         private const val IS_UDFPS_PROP = "ro.hardware.fp.udfps"
-        private const val UDFPS_LOCATION_X_Y_PROP = "persist.vendor.sys.fp.udfps.location.X_Y"
-        private const val UDFPS_SIZE_W_H_PROP = "persist.vendor.sys.fp.udfps.size.width_height"
+        private const val UDFPS_LOCATION_X_Y_PROP = "persist.vendor.sys.fp.fod.location.X_Y"
+        private const val UDFPS_SIZE_W_H_PROP = "persist.vendor.sys.fp.fod.size.width_height"
 
         private val invalidFpVendors = arrayOf(
             "",
