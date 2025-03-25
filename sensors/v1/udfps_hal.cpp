@@ -16,11 +16,7 @@
 #include <string.h>
 #include <utils/SystemClock.h>
 
-static const char *udfps_state_paths[] = {
-        "/sys/devices/virtual/touch/tp_dev/fp_state",
-        "/sys/touchpanel/fp_state",
-        NULL,
-};
+static const char udfps_state_path[] = "/sys/touchpanel/fp_state";
 
 static struct sensor_t udfps_sensor = {
         .name = "UDFPS Sensor",
@@ -191,13 +187,7 @@ static int open_sensors(const struct hw_module_t* module, const char* /* name */
     ctx->device.batch = udfps_batch;
     ctx->device.flush = udfps_flush;
 
-    for (int i = 0; udfps_state_paths[i]; i++) {
-        ctx->fd = open(udfps_state_paths[i], O_RDONLY);
-        if (ctx->fd >= 0) {
-            break;
-        }
-    }
-
+    ctx->fd = open(udfps_state_path, O_RDONLY);
     if (ctx->fd < 0) {
         ALOGE("Failed to open fp state: %d", -errno);
         delete ctx;
